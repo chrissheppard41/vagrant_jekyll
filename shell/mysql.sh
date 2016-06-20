@@ -6,18 +6,8 @@ echo "---------------------------------------"
 PASSWORD='password'
 
 # install mysql and give password to installer
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $PASSWORD"
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $PASSWORD"
-sudo apt-get -y install mysql-server
-sudo apt-get install php5-mysql
-
-# install phpmyadmin and give password(s) to installer
-# for simplicity I'm using the same password for mysql and phpmyadmin
-sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/dbconfig-install boolean true"
-sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/app-password-confirm password $PASSWORD"
-sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/admin-pass password $PASSWORD"
-sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/app-pass password $PASSWORD"
-sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2"
-sudo apt-get -y install phpmyadmin
+sudo debconf-set-selections <<< 'mysql-server-5.6 mysql-server/root_password password password'
+sudo debconf-set-selections <<< 'mysql-server-5.6 mysql-server/root_password_again password password'
+sudo apt-get -y install mysql-server libapache2-mod-auth-mysql php7.0-mysql
 
 mysql --version
