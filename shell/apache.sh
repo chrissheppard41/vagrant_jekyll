@@ -7,7 +7,7 @@ echo "---------------------------------------"
 
 # linking Vagrant directory to Apache 2.4 public directory
 rm -rf /var/www
-ln -fs /vagrant/jekyll /var/www
+ln -fs /vagrant/www /var/www
 
 # Add ServerName to httpd.conf
 echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/servername.conf
@@ -16,9 +16,9 @@ a2enconf servername
 # Setup hosts file
 VHOST=$(cat <<EOF
 <VirtualHost *:80>
-  DocumentRoot "/var/www/_site"
+  DocumentRoot "/var/www"
   ServerName localhost
-  <Directory "/var/www/_site">
+  <Directory "/var/www">
     AllowOverride All
   </Directory>
 </VirtualHost>
