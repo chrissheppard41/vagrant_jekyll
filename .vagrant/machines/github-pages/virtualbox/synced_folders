@@ -1,1 +1,0 @@
-{"virtualbox":{"/var/www":{"create":true,"guestpath":"/var/www","hostpath":"C:/www/Jekyll/www","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/www/Jekyll","disabled":false,"__vagrantfile":true}}}
