@@ -6,6 +6,8 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+    
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "ubuntu/trusty64"
   config.vm.hostname = "jekyll"
@@ -29,7 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: "shell/mysql.sh"
 
   # Create a shared folder between guest and host
-  #config.vm.synced_folder "www/", "/var/www", create: true
+  #config.vm.synced_folder "www/", "/vagrant/www", create: true
 
   #config.ssh.forward_agent = true
 
