@@ -27,6 +27,10 @@ add-apt-repository ppa:ondrej/php
 # Mysql 5.6
 add-apt-repository -y ppa:ondrej/mysql-5.6
 
+# Google Pagespeed
+dpkg -i /vagrant/packages/mod-pagespeed-stable_current_amd64.deb
+apt-get -f install
+
 apt-get update
 apt-get upgrade
 
@@ -46,6 +50,7 @@ apt_packages=(
     default-jre
     default-jdk
 )
+
 
 apt-get install -y ${apt_packages[@]}
 apt-get clean

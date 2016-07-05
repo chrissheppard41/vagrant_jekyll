@@ -7,6 +7,7 @@ echo "---------------------------------------"
 
 # linking Vagrant directory to Apache 2.4 public directory
 rm -rf /var/www
+mkdir /vagrant/www
 ln -fs /vagrant/www /var/www
 
 # Add ServerName to httpd.conf
@@ -16,16 +17,22 @@ a2enconf servername
 # Setup hosts file
 VHOST=$(cat <<EOF
 <VirtualHost *:80>
-  DocumentRoot "/var/www"
+  DocumentRoot "/var/www/qz/_site"
   ServerName localhost
-  <Directory "/var/www">
+  <Directory "/var/www/qz/_site">
     AllowOverride All
   </Directory>
+  #Include mods-available/deflate.conf
+  #Include mods-available/pagespeed.conf
 </VirtualHost>
 EOF
 )
 echo "${VHOST}" > /etc/apache2/sites-enabled/000-default.conf
 
+sudo cp /vagrant/scripts/deflate.conf /etc/apache2/mods-available
+sudo cp /vagrant/scripts/pagespeed.load /etc/apache2/mods-available
+sudo cp /vagrant/scripts/pagespeed.conf /etc/apache2/mods-available
+
 # Loading needed modules to make apache work
-a2enmod actions fastcgi rewrite
+a2enmod actions fastcgi rewrite pagespeed deflate
 service apache2 reload
