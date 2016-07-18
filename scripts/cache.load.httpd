@@ -1,0 +1,4 @@
+# Attempt to load mod_expires if it wasn't loaded or compiled in (eg on Debian)
+<IfModule !mod_expires.c>
+  LoadModule expires_module modules/mod_expires.so
+</IfModule>

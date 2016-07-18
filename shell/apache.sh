@@ -19,11 +19,13 @@ VHOST=$(cat <<EOF
 <VirtualHost *:80>
   DocumentRoot "/var/www/qz/_site"
   ServerName localhost
+  AddDefaultCharset utf-8
   <Directory "/var/www/qz/_site">
     AllowOverride All
   </Directory>
   #Include mods-available/deflate.conf
   #Include mods-available/pagespeed.conf
+  #Include mods-available/cache.conf
 </VirtualHost>
 EOF
 )
@@ -32,7 +34,9 @@ echo "${VHOST}" > /etc/apache2/sites-enabled/000-default.conf
 sudo cp /vagrant/scripts/deflate.conf /etc/apache2/mods-available
 sudo cp /vagrant/scripts/pagespeed.load /etc/apache2/mods-available
 sudo cp /vagrant/scripts/pagespeed.conf /etc/apache2/mods-available
+sudo cp /vagrant/scripts/cache.load /etc/apache2/mods-available
+sudo cp /vagrant/scripts/cache.conf /etc/apache2/mods-available
 
 # Loading needed modules to make apache work
-a2enmod actions fastcgi rewrite pagespeed deflate
+a2enmod actions fastcgi rewrite pagespeed deflate expires cache
 service apache2 reload
